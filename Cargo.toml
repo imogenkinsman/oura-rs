@@ -1,9 +1,10 @@
 [package]
 name = "oura-rs"
 version = "0.1.0"
-authors = ["Jade McGough <jade@thezets.com>"]
+authors = ["Imogen Kinsman <jade@thezets.com>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+oauth2 = { version = "3.0", features = ["futures-03", "reqwest-010"], default-features = false }
