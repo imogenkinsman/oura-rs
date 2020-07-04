@@ -34,31 +34,30 @@ impl Client {
     // generate a PKCE challenge - see https://tools.ietf.org/html/rfc7636
     let (pkce_challenge, pkce_verifier) = PkceCodeChallenge::new_random_sha256();
 
-// // Generate the full authorization URL.
-// let (auth_url, csrf_token) = client
-//     .authorize_url(CsrfToken::new_random)
-//     // Set the desired scopes.
-//     .add_scope(Scope::new("read".to_string()))
-//     .add_scope(Scope::new("write".to_string()))
-//     // Set the PKCE code challenge.
-//     .set_pkce_challenge(pkce_challenge)
-//     .url();
+// Generate the full authorization URL.
+    let (auth_url, csrf_token) = client
+        .authorize_url(CsrfToken::new_random)
+        // Set the desired scopes.
+        .add_scope(Scope::new("read".to_string()))
+        // Set the PKCE code challenge.
+        .set_pkce_challenge(pkce_challenge)
+        .url();
 
-// // This is the URL you should redirect the user to, in order to trigger the authorization
-// // process.
-// println!("Browse to: {}", auth_url);
+// This is the URL you should redirect the user to, in order to trigger the authorization
+// process.
+println!("Browse to: {}", auth_url);
 
-// // Once the user has been redirected to the redirect URL, you'll have access to the
-// // authorization code. For security reasons, your code should verify that the `state`
-// // parameter returned by the server matches `csrf_state`.
+// Once the user has been redirected to the redirect URL, you'll have access to the
+// authorization code. For security reasons, your code should verify that the `state`
+// parameter returned by the server matches `csrf_state`.
 
-// // Now you can trade it for an access token.
-// let token_result = client
-//     .exchange_code(AuthorizationCode::new("some authorization code".to_string()))
-//     // Set the PKCE code verifier.
-//     .set_pkce_verifier(pkce_verifier)
-//     .request_async(async_http_client)
-//     .await?;
+// Now you can trade it for an access token.
+let token_result = client
+    .exchange_code(AuthorizationCode::new("some authorization code".to_string()))
+    // Set the PKCE code verifier.
+    .set_pkce_verifier(pkce_verifier)
+    .request_async(async_http_client)
+    .await?;
 
 // // Unwrapping token_result will either produce a Token or a RequestTokenError.
 
