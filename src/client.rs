@@ -21,7 +21,7 @@ pub struct Client {
 }
 
 impl Client {
-    pub fn connect(c: ClientConfig) -> Client {
+    pub async fn connect(c: ClientConfig) -> Result<Client,Box<Error>> {
     let client =
     BasicClient::new(
         ClientId::new(c.client_id),
