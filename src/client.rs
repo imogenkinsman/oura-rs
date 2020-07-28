@@ -21,7 +21,7 @@ pub struct Client {
 }
 
 impl Client {
-    pub async fn connect(c: ClientConfig) -> Result<Client,Box<Error>> {
+    pub async fn connect(c: ClientConfig) -> Result<Client, io:Error> {
     let client =
     BasicClient::new(
         ClientId::new(c.client_id),
@@ -62,7 +62,7 @@ let token_result = client
 // // Unwrapping token_result will either produce a Token or a RequestTokenError.
 
     let client = Client{config: config};
-    return client;
+    Ok(client)
 }
 
 pub struct ClientConfig {

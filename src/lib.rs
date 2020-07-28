@@ -19,9 +19,8 @@ mod tests {
             token_url: "foo".to_string(),
             redirect_url: "foo".to_string(),
         };
-        let client = client::Client::connect(config);
-        // let client = client::Client
-        assert_eq!(2 + 2, 4);
+        let response = block_on(client::Client::connect(config));
+        assert!(response.is_ok())
     }
 
     // #[test]
