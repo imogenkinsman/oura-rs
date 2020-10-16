@@ -19,6 +19,8 @@ Create an Oura account (if you haven't) and use that to create a personal access
 
 ### Installation
 
+I might split the CLI and API wrapper out then pop this on AUR or something.
+
 ### CLI shenanigans
 
 °˖✧◝(⁰▿⁰)◜✧˖°
