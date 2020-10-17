@@ -14,6 +14,21 @@ struct UserInfo {
     email: String,
 }
 
+#[derive(Deserialize, Debug)]
+struct Readiness {
+    summary_date: String, // change this to parse into date type
+    period_id: u8,
+    score: u8,
+    score_previous_night: u8,
+    score_sleep_balance: u8,
+    score_previous_day: u8,
+    score_activity_balance: u8,
+    score_resting_hr: u8,
+    score_hrv_balance: u8,
+    score_recovery_index: u8,
+    score_temperature: u8,
+}
+
 impl Client {
     pub fn new(token: String) -> Self {
         Self { token }
