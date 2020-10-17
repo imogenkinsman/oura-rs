@@ -35,6 +35,9 @@ Import the client and use it (๑˃ᴗ˂)ﻭ
 
 This is designed in a modular fashion, so you can easily contribute a plugin (*≧ω≦*)
 
-### Caveats
+### Roadmap
 
-I am bad at Rust.
+- [ ] API wrapper
+- [ ] CLI
+- DB integrations:
+  - [ ] Prometheus
