@@ -1,11 +1,12 @@
 [package]
 name = "oura-rs"
 version = "0.1.0"
-authors = ["Imogen Kinsman <jade@thezets.com>"]
+authors = ["Imogen Kinsman <imogen@thezets.com>"]
 edition = "2018"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+license = "MIT"
+repository = "https://github.com/immykins/oura-rs"
+description = "An async client for the Oura API"
 
 [dependencies]
-oauth2 = { version = "3.0", features = ["futures-03", "reqwest-010"], default-features = false }
-url = { version = "2.0" }
+reqwest = { version = "0.10", features = ["json"] }
+clap = "3.0.0-beta.2"

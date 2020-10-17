@@ -32,3 +32,7 @@ Import the client and use it (๑˃ᴗ˂)ﻭ
 ### Contributing
 
 This is designed in a modular fashion, so you can easily contribute a plugin (*≧ω≦*)
+
+### Caveats
+
+I am bad at Rust.
