@@ -1,14 +1,34 @@
-mod client;
-
-// use url::Url;
+use serde::Deserialize;
+use url::Url;
 
 pub struct Client {
-    token: String, // personal access token
+    pub token: String, // personal access token
+}
+
+#[derive(Deserialize, Debug)]
+struct UserInfo {
+    age: u8,
+    weight: f32,
+    height: u16,
+    gender: String,
+    email: String,
 }
 
 impl Client {
     pub fn new(token: String) -> Self {
         Self { token }
+    }
+
+    // #[tokio::main]
+    pub fn info(&self) -> Result<(), Box<dyn std::error::Error>> {
+        let url = Url::parse_with_params(
+            "https://api.ouraring.com/v1/userinfo",
+            &[("access_token", self.token.clone())],
+        )?;
+        let resp = reqwest::blocking::get(url)?.json::<UserInfo>()?;
+        // .json::<HashMap<String, String>>()?;
+        println!("{:#?}", resp);
+        Ok(())
     }
 
     // pub fn

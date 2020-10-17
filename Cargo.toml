@@ -8,5 +8,8 @@ repository = "https://github.com/immykins/oura-rs"
 description = "An async client for the Oura API"
 
 [dependencies]
-reqwest = { version = "0.10", features = ["json"] }
+reqwest = { version = "0.10", features = ["json", "blocking"] }
 clap = "3.0.0-beta.2"
+futures = "0.3"
+serde = { version = "1.0.117", features = ["derive"] }
+url = "2.1.1"
