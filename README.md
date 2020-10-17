@@ -41,3 +41,5 @@ This is designed in a modular fashion, so you can easily contribute a plugin (*�
 - [ ] CLI
 - DB integrations:
   - [ ] Prometheus
+
+I might split out the CLI idk (￣︿￣)
