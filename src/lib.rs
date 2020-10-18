@@ -16,7 +16,7 @@ struct UserInfo {
 
 #[derive(Deserialize, Debug)]
 struct Readiness {
-    readiness: Vec<ReadinessPeriod>,
+    readiness_periods: Vec<ReadinessPeriod>,
 }
 
 #[derive(Deserialize, Debug)]
