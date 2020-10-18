@@ -34,6 +34,22 @@ struct ReadinessPeriod {
     score_temperature: u8,
 }
 
+#[derive(Deserialize, Debug)]
+struct Sleep {
+    sleep: Vec<SleepPeriod>,
+}
+
+#[derive(Deserialize, Debug)]
+struct SleepPeriod {}
+
+#[derive(Deserialize, Debug)]
+struct Activity {
+    activity: Vec<ActivityPeriod>,
+}
+
+#[derive(Deserialize, Debug)]
+struct ActivityPeriod {}
+
 macro_rules! endpoint {
     ($name:ident, $type:ty, $url:literal) => {
         pub fn $name(&self) -> Result<(), Box<dyn std::error::Error>> {
@@ -50,12 +66,13 @@ impl Client {
         Self { token }
     }
 
+    // public endpoint functions
     endpoint!(info, UserInfo, "https://api.ouraring.com/v1/userinfo");
+    endpoint!(sleep, Sleep, "https://api.ouraring.com/v1/sleep");
+    endpoint!(activity, Activity, "https://api.ouraring.com/v1/activity");
     endpoint!(
         readiness,
         Readiness,
         "https://api.ouraring.com/v1/readiness"
     );
-
-    // pub fn
 }
