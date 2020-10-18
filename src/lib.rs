@@ -16,7 +16,7 @@ struct UserInfo {
 
 #[derive(Deserialize, Debug)]
 struct Readiness {
-    readiness_periods: Vec<ReadinessPeriod>,
+    readiness: Vec<ReadinessPeriod>,
 }
 
 #[derive(Deserialize, Debug)]
@@ -34,41 +34,28 @@ struct ReadinessPeriod {
     score_temperature: u8,
 }
 
-impl Client {
-    const USER_INFO_URL: &'static str = "https://api.ouraring.com/v1/readiness";
-    const READINESS_URL: &'static str = "https://api.ouraring.com/v1/userinfo";
+macro_rules! endpoint {
+    ($name:ident, $type:ty, $url:literal) => {
+        pub fn $name(&self) -> Result<(), Box<dyn std::error::Error>> {
+            let url = Url::parse_with_params($url, &[("access_token", self.token.clone())])?;
+            let resp = reqwest::blocking::get(url)?.json::<$type>()?;
+            println!("{:#?}", resp);
+            Ok(())
+        }
+    };
+}
 
+impl Client {
     pub fn new(token: String) -> Self {
         Self { token }
     }
 
-    pub fn info(&self) -> Result<(), Box<dyn std::error::Error>> {
-        let url = Url::parse_with_params(
-            Client::USER_INFO_URL,
-            &[("access_token", self.token.clone())],
-        )?;
-        let resp = reqwest::blocking::get(url)?.json::<UserInfo>()?;
-        println!("{:#?}", resp);
-        Ok(())
-    }
+    endpoint!(info, UserInfo, "https://api.ouraring.com/v1/userinfo");
+    endpoint!(
+        readiness,
+        Readiness,
+        "https://api.ouraring.com/v1/readiness"
+    );
 
-    pub fn readiness(&self) -> Result<(), Box<dyn std::error::Error>> {
-        let url = Url::parse_with_params(
-            Client::READINESS_URL,
-            &[("access_token", self.token.clone())],
-        )?;
-        let resp = reqwest::blocking::get(url)?.json::<UserInfo>()?;
-        println!("{:#?}", resp);
-        Ok(())
-    }
-
-    // fn make_request(
-    //     &self,
-    //     endpoint: &str,
-    // ) -> Result<reqwest::blocking::Response, Box<dyn std::error::Error>> {
-    //     let url = format!("{}{}", Client::BASE_URL, endpoint);
-    //     let url = Url::parse_with_params(url, &[("access_token", self.token.clone())])?;
-    //     Ok(reqwest::blocking::get(url)?)
-    //     // Ok(())
-    // }
+    // pub fn
 }
