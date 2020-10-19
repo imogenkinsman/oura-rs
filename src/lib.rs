@@ -40,7 +40,40 @@ struct Sleep {
 }
 
 #[derive(Deserialize, Debug)]
-struct SleepPeriod {}
+struct SleepPeriod {
+    summary_date: String, // change this to parse into date type
+    period_id: u8,
+    is_longest: u8,
+    timezone: i32,
+    bedtime_start: String, // should be date
+    bedtime_end: String,   // shound be date
+    score: u8,
+    score_total: u8,
+    score_disturbances: u8,
+    score_efficiency: u8,
+    score_latency: u8,
+    score_rem: u8,
+    score_deep: u8,
+    score_alignment: u8,
+    total: u16,
+    duration: u16,
+    awake: u16,
+    light: u16,
+    rem: u16,
+    deep: u16,
+    onset_latency: u16,
+    restless: u8,
+    efficiency: u8,
+    midpoint_time: u16,
+    hr_lowest: u16,
+    hr_average: f32,
+    rmssd: u16,
+    breath_average: f32,
+    temperature_delta: f32,
+    hypnogram_5min: String, // this is a weird one
+    hr_5min: Vec<u8>,
+    rmssd_5min: Vec<u16>,
+}
 
 #[derive(Deserialize, Debug)]
 struct Activity {
