@@ -100,6 +100,7 @@ impl Client {
     }
 
     // public endpoint functions
+    // function name | struct it populates | api endpoint
     endpoint!(info, UserInfo, "https://api.ouraring.com/v1/userinfo");
     endpoint!(sleep, Sleep, "https://api.ouraring.com/v1/sleep");
     endpoint!(activity, Activity, "https://api.ouraring.com/v1/activity");
