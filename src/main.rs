@@ -18,6 +18,7 @@ enum SubCommand {
     Readiness(Readiness),
     Sleep(Sleep),
     Activity(Activity),
+    Bedtime(Bedtime),
 }
 
 #[derive(Clap)]
@@ -32,6 +33,9 @@ struct Sleep {}
 #[derive(Clap)]
 struct Activity {}
 
+#[derive(Clap)]
+struct Bedtime {}
+
 fn main() {
     let opts: Opts = Opts::parse();
     let client = Client::new(opts.token);
@@ -41,6 +45,7 @@ fn main() {
         SubCommand::Readiness(_) => client.readiness(),
         SubCommand::Sleep(_) => client.sleep(),
         SubCommand::Activity(_) => client.activity(),
+        SubCommand::Bedtime(_) => client.bedtime(),
     };
 
     match result {
