@@ -107,7 +107,7 @@ struct ActivityPeriod {
     met_min_inactive: u16,
     met_min_low: u16,
     #[serde(default)]
-    met_min_medium_plus: u16,
+    met_min_medium_plus: u16, // not included if no "high" activity
     met_min_medium: u16,
     met_min_high: u16,
     average_met: f32,
@@ -129,8 +129,9 @@ struct IdealBedtimes {
 
 #[derive(Deserialize, Debug)]
 struct BedtimeWindow {
-    start: i32,
-    end: i32,
+    // both of these can be null
+    start: Option<i32>,
+    end: Option<i32>,
 }
 
 macro_rules! endpoint {
