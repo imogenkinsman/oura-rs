@@ -37,8 +37,8 @@ This is designed in a modular fashion, so you can easily contribute a plugin (*â
 
 ### Roadmap
 
-- [ ] API wrapper
-- [ ] CLI
+- [x] API wrapper
+- [x] CLI
 - [ ] Token storage
 - [ ] Automatic DB pushes (daemon)
 - DB integrations:
