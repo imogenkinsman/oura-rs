@@ -6,6 +6,7 @@ use lib::Client;
 #[derive(Clap)]
 #[clap(version = "0.1.0", author = "Imogen Kinsman <imogen@thezets.com>")]
 struct Opts {
+    /// A personal access token.
     #[clap(short, long)]
     token: String,
     #[clap(subcommand)]
@@ -14,10 +15,15 @@ struct Opts {
 
 #[derive(Clap)]
 enum SubCommand {
+    /// User info.
     Info(Info),
-    Readiness(Readiness),
-    Sleep(Sleep),
-    Activity(Activity),
+    /// Daily readiness summaries.
+    Readiness(ReadinessOpts),
+    /// Daily sleep summaries.
+    Sleep(SleepOpts),
+    /// Daily activity summaries.
+    Activity(ActivityOpts),
+    /// Optimal bedtime window.
     Bedtime(Bedtime),
 }
 
@@ -25,13 +31,34 @@ enum SubCommand {
 struct Info {}
 
 #[derive(Clap)]
-struct Readiness {}
+struct ReadinessOpts {
+    /// <YYYY-MM-DD> Start date. Defaults to one week from now.
+    #[clap(long)]
+    start: Option<String>,
+    /// <YYYY-MM-DD> End date. Defaults to today.
+    #[clap(long)]
+    end: Option<String>,
+}
 
 #[derive(Clap)]
-struct Sleep {}
+struct SleepOpts {
+    /// <YYYY-MM-DD> Start date. Defaults to one week from now.
+    #[clap(long)]
+    start: Option<String>,
+    /// <YYYY-MM-DD> End date. Defaults to today.
+    #[clap(long)]
+    end: Option<String>,
+}
 
 #[derive(Clap)]
-struct Activity {}
+struct ActivityOpts {
+    /// <YYYY-MM-DD> Start date. Defaults to one week from now.
+    #[clap(long)]
+    start: Option<String>,
+    /// <YYYY-MM-DD> End date. Defaults to today.
+    #[clap(long)]
+    end: Option<String>,
+}
 
 #[derive(Clap)]
 struct Bedtime {}
