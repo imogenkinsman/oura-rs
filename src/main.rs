@@ -1,7 +1,7 @@
 mod lib;
 
 use clap::Clap;
-use lib::Client;
+use lib::{Client, TimeOpts};
 
 #[derive(Clap)]
 #[clap(version = "0.1.0", author = "Imogen Kinsman <imogen@thezets.com>")]
@@ -18,47 +18,17 @@ enum SubCommand {
     /// User info.
     Info(Info),
     /// Daily readiness summaries.
-    Readiness(ReadinessOpts),
+    Readiness(TimeOpts),
     /// Daily sleep summaries.
-    Sleep(SleepOpts),
+    Sleep(TimeOpts),
     /// Daily activity summaries.
-    Activity(ActivityOpts),
+    Activity(TimeOpts),
     /// Optimal bedtime window.
     Bedtime(Bedtime),
 }
 
 #[derive(Clap)]
 struct Info {}
-
-#[derive(Clap)]
-struct ReadinessOpts {
-    /// <YYYY-MM-DD> Start date. Defaults to one week from now.
-    #[clap(long)]
-    start: Option<String>,
-    /// <YYYY-MM-DD> End date. Defaults to today.
-    #[clap(long)]
-    end: Option<String>,
-}
-
-#[derive(Clap)]
-struct SleepOpts {
-    /// <YYYY-MM-DD> Start date. Defaults to one week from now.
-    #[clap(long)]
-    start: Option<String>,
-    /// <YYYY-MM-DD> End date. Defaults to today.
-    #[clap(long)]
-    end: Option<String>,
-}
-
-#[derive(Clap)]
-struct ActivityOpts {
-    /// <YYYY-MM-DD> Start date. Defaults to one week from now.
-    #[clap(long)]
-    start: Option<String>,
-    /// <YYYY-MM-DD> End date. Defaults to today.
-    #[clap(long)]
-    end: Option<String>,
-}
 
 #[derive(Clap)]
 struct Bedtime {}
@@ -71,7 +41,7 @@ fn main() {
         SubCommand::Info(_) => client.info(),
         SubCommand::Readiness(_) => client.readiness(),
         SubCommand::Sleep(_) => client.sleep(),
-        SubCommand::Activity(_) => client.activity(),
+        SubCommand::Activity(time_opts) => client.activity(time_opts),
         SubCommand::Bedtime(_) => client.bedtime(),
     };
 

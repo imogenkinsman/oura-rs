@@ -1,5 +1,7 @@
 use serde::Deserialize;
 use url::Url;
+// use main::
+use clap::Clap;
 
 pub struct Client {
     pub token: String, // personal access token
@@ -134,6 +136,18 @@ struct BedtimeWindow {
     end: Option<i32>,
 }
 
+// TODO: we don't want clap to be required within lib.
+// can probably get rid of this dependency by not using derive for clap within main.rs
+#[derive(Clap)]
+pub struct TimeOpts {
+    /// <YYYY-MM-DD> Start date. Defaults to one week from now.
+    #[clap(long)]
+    start: Option<String>,
+    /// <YYYY-MM-DD> End date. Defaults to today.
+    #[clap(long)]
+    end: Option<String>,
+}
+
 macro_rules! endpoint {
     ($name:ident, $type:ty, $url:literal) => {
         pub fn $name(&self) -> Result<(), Box<dyn std::error::Error>> {
@@ -150,11 +164,20 @@ impl Client {
         Self { token }
     }
 
+    pub fn activity(&self, opts: TimeOpts) -> Result<(), Box<dyn std::error::Error>> {
+        let url = Url::parse_with_params(
+            "https://api.ouraring.com/v1/activity",
+            &[("access_token", self.token.clone())],
+        )?;
+        let resp = reqwest::blocking::get(url)?.json::<Activity>()?;
+        println!("{:#?}", resp);
+        Ok(())
+    }
+
     // public endpoint functions
     // function name | struct it populates | api endpoint
     endpoint!(info, UserInfo, "https://api.ouraring.com/v1/userinfo");
     endpoint!(sleep, Sleep, "https://api.ouraring.com/v1/sleep");
-    endpoint!(activity, Activity, "https://api.ouraring.com/v1/activity");
     endpoint!(bedtime, Bedtime, "https://api.ouraring.com/v1/bedtime");
     endpoint!(
         readiness,
